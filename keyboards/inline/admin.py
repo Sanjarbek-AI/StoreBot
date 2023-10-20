@@ -11,3 +11,15 @@ async def admin_category_update_keyboards(category):
         ]
     )
     return cat_markup
+
+
+async def admin_product_update_keyboards(product):
+    product_markup = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton("Delete 🗑", callback_data=product[0]),
+                InlineKeyboardButton("Update 🔄", callback_data=product[0]),
+            ]
+        ]
+    )
+    return product_markup

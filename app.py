@@ -8,7 +8,9 @@ from utils.set_bot_commands import set_default_commands
 
 async def on_startup(dispatcher):
     await set_default_commands(dispatcher)
-    db_manager.create_tables()
+
+    # db_manager.delete_table('products')
+    # db_manager.create_tables()
     await on_startup_notify(dispatcher)
 
 

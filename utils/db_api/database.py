@@ -14,7 +14,7 @@ class DatabaseManager:
         price REAL,
         photo TEXT,
         about TEXT,
-        category INTEGER,
+        category TEXT,
         status INTEGER,
         created_at TEXT
         )""")
@@ -36,9 +36,33 @@ class DatabaseManager:
             print(exc)
             return False
 
+    def add_product(self, data: dict):
+        name = data.get('name')
+        price = data.get('price')
+        about = data.get('about')
+        photo = data.get('image')
+        status = data.get('status')
+        category = data.get('category')
+        created_at = data.get('created_at')
+        try:
+            self.cursor.execute(f"INSERT INTO products (name, price, about, photo, status, category, created_at)"
+                                f" VALUES (?,?,?,?,?,?,?)", (name, price, about, photo, status, category, created_at))
+            self.conn.commit()
+            return True
+        except Exception as exc:
+            print(exc)
+            return False
+
     def get_all_categories(self):
         try:
             return self.cursor.execute("SELECT * FROM categories;").fetchall()
+        except Exception as exc:
+            print(exc)
+            return False
+
+    def get_all_products(self):
+        try:
+            return self.cursor.execute("SELECT * FROM products;").fetchall()
         except Exception as exc:
             print(exc)
             return False
@@ -50,9 +74,21 @@ class DatabaseManager:
             print(exc)
             return False
 
+
+    def get_product_by_name(self, name):
+        try:
+            return self.cursor.execute(f"SELECT * FROM products WHERE name='{name}' AND status=1").fetchone()
+        except Exception as exc:
+            print(exc)
+            return False
+
     def get_products_by_cat_id(self, cat_id):
         try:
             return self.cursor.execute(f"SELECT * FROM products WHERE category={cat_id}").fetchall()
         except Exception as exc:
             print(exc)
             return False
+
+    def delete_table(self, table_name):
+        self.cursor.execute(f"DROP TABLE {table_name}")
+        self.conn.commit()
