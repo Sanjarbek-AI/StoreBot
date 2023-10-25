@@ -22,7 +22,7 @@ async def admin_product_handler(message: types.Message, state: FSMContext):
 
 
 @dp.message_handler(text="➕ Add Product", chat_id=ADMINS, state="admin-product-inside")
-async def admin_product_handler(message: types.Message, state: FSMContext):
+async def admin_product_handler(message: types.Message):
     text = "Enter name to new product."
     await message.answer(text=text)
     await AddProduct.name.set()
@@ -77,10 +77,6 @@ async def admin_category_handler(message: types.Message):
     product = db_manager.get_product_by_name(name)
 
     if product:
-        text = f"""
-😋 {product[1]} | {product[2]} sum | {product[5]}
-
-{product[4]}
-"""
+        text = f"😋 {product[1]} | {product[2]} sum | {product[5]}\n\n{product[4]}"
         await message.answer_photo(photo=product[3], caption=text,
                                    reply_markup=await admin_product_update_keyboards(product))

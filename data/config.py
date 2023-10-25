@@ -1,10 +1,13 @@
 from environs import Env
 
-# environs kutubxonasidan foydalanish
 env = Env()
 env.read_env()
 
-# .env fayl ichidan quyidagilarni o'qiymiz
-BOT_TOKEN = env.str("BOT_TOKEN")  # Bot toekn
-ADMINS = env.list("ADMINS")  # adminlar ro'yxati
-IP = env.str("ip")  # Xosting ip manzili
+BOT_TOKEN = env.str("BOT_TOKEN")
+ADMINS = env.list("ADMINS")
+IP = env.str("ip")
+
+CHANNELS = (
+    {'id': -1002028491479, 'name': "Test 463", 'link': "https://t.me/+6sccjf47L2E0YWQy"},
+    {'id': -1001967245677, 'name': "Test", 'link': "https://t.me/+0gUAMSM42kYyNGVi"},
+)
