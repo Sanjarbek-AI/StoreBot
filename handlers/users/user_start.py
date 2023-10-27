@@ -25,14 +25,5 @@ async def check_user_sub_handler(call: types.CallbackQuery):
 
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
-    not_member = []
-    for channel in CHANNELS:
-        if not await check_subscription(message.chat.id, channel['id']):
-            print(channel)
-            not_member.append(channel)
-    if len(not_member) == 0:
-        text = "Assalomu alaykum."
-        await message.answer(text=text, reply_markup=user_main_menu)
-    else:
-        await message.answer(text="Siz kanalga a'zo bo'lmagansiz",
-                             reply_markup=await user_not_member_channels_def(not_member))
+    text = "Assalomu alaykum."
+    await message.answer(text=text, reply_markup=user_main_menu)
